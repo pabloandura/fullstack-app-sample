@@ -26,7 +26,7 @@ function FileList() {
             <Button
               variant='transparent'
               className='float-right'
-              title='Show rows for this file'
+              title={`Show rows for file ${file}`}
               onClick={() => handleSelectFile(file)}
             >
               {loadingFile === file ? (

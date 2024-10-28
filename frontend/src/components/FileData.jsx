@@ -19,7 +19,7 @@ function FileData() {
       <div className='d-flex justify-content-between align-items-center my-sm-4'>
         <h2>Data for {selectedFile}</h2>
         <Button variant='secondary' onClick={() => dispatch(clearSelectedFile())} className='mb-3'>
-          Back to Files
+          Unselect file
         </Button>
       </div>
 
