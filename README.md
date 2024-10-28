@@ -24,13 +24,18 @@ Ensure that you have Node.js (v14+) and npm installed on your machine. The proje
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/pabloandura/fullstack-for-toolbox.git
+   cd fullstack-for-toolbox
 
 2. **Install dependencies for both backend and frontend:**
    ```bash
+   cd frontend
    npm install
-   npm run install:all
+
+   cd ..
+   cd backend
+   npm install
+   ```
 
 3. **Environment Variables:**
    - Set up environment variables in the backend to access external APIs, e.g., an `API_KEY` for secure requests.
