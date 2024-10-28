@@ -1,40 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { Table, Container, Button, Spinner, Alert } from 'react-bootstrap'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchFileData, clearSelectedFile } from '../slices/fileSlice';
+import { Table, Container, Button, Spinner, Alert } from 'react-bootstrap';
 
-function FileData ({ fileName, onBack }) {
-  const [fileData, setFileData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    setLoading(true)
-    fetch(`/files/data?fileName=${fileName}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-        return response.json()
-      })
-      .then(data => {
-        setFileData(data[0])
-        setError(null)
-      })
-      .catch(err => {
-        setError('Failed to load file data')
-        console.error(err)
-      })
-      .finally(() => setLoading(false))
-  }, [fileName])
+function FileData() {
+  const dispatch = useDispatch();
+  const { selectedFile, fileData, loading, error } = useSelector((state) => state.file);
 
   useEffect(() => {
-    console.log(fileData)
-  }, [fileData])
+    if (selectedFile) {
+      dispatch(fetchFileData(selectedFile));
+    }
+  }, [dispatch, selectedFile]);
 
   return (
     <Container>
       <div className='d-flex justify-content-between align-items-center'>
-        <h2 className='mb-4'>Data for {fileName}</h2>
-        <Button variant='secondary' onClick={onBack} className='mb-3'>Back to Files</Button>
+        <h2 className='mb-4'>Data for {selectedFile}</h2>
+        <Button variant='secondary' onClick={() => dispatch(clearSelectedFile())} className='mb-3'>
+          Back to Files
+        </Button>
       </div>
 
       {loading && (
@@ -52,7 +37,7 @@ function FileData ({ fileName, onBack }) {
 
       {!loading && !error && fileData && fileData.lines.length > 0 && (
         <Table responsive='md' striped bordered hover className='shadow-sm'>
-          <caption className='text-muted'>List of data entries for the file {fileName}</caption>
+          <caption className='text-muted'>List of data entries for the file {selectedFile}</caption>
           <thead className='bg-primary text-white'>
             <tr>
               <th>Text</th>
@@ -72,7 +57,7 @@ function FileData ({ fileName, onBack }) {
         </Table>
       )}
     </Container>
-  )
+  );
 }
 
-export default FileData
+export default FileData;
