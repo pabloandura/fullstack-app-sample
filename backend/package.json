@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "keywords": [
     "toolbox",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "chai": "^5.1.2",
     "mocha": "^10.7.3",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "standard": "^17.1.2"
   }
 }
