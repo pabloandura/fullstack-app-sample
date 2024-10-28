@@ -22,10 +22,10 @@ app.get('/', (req, res) => {
  */
 app.get('/files/list', async (req, res) => {
   try {
-    const fileList = await getFileList()
-    res.status(200).json(fileList)
+    const fileList = await getFileList();
+    res.status(200).json(fileList);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener la lista de archivos' })
+    res.status(502).json({ error: error.message });
   }
 })
 
@@ -37,28 +37,34 @@ app.get('/files/list', async (req, res) => {
  */
 app.get('/files/data', async (req, res) => {
   try {
-    const { fileName } = req.query
-    const fileList = await getFileList()
-    const results = []
+    const { fileName } = req.query;
+    const fileList = await getFileList();
+    const results = [];
 
-    const filesToProcess = fileName ? fileList.filter(f => f === fileName) : fileList
+    const filesToProcess = fileName ? fileList.filter(f => f === fileName) : fileList;
 
     for (const file of filesToProcess) {
-      const csvData = await downloadFile(file)
-      if (csvData) {
-        const parsedData = parseCSV(file, csvData)
-        if (parsedData.lines.length > 0) results.push(parsedData)
+      try {
+        const csvData = await downloadFile(file);
+        const parsedData = parseCSV(file, csvData);
+        if (parsedData.lines.length > 0) results.push(parsedData);
+      } catch (error) {
+        console.error(`Skipping file ${file} due to error:`, error.message);
       }
     }
 
-    res.status(200).json(results)
+    if (results.length === 0) {
+      res.status(404).json({ error: 'No files found or all failed to load.' });
+    } else {
+      res.status(200).json(results);
+    }
   } catch (error) {
-    res.status(500).json({ error: 'Error procesando archivos' })
+    res.status(500).json({ error: `Error processing files: ${error.message}` });
   }
-})
+});
 
 app.listen(PORT, () => {
-  console.log(`Servidor API corriendo en el puerto ${PORT}`)
+  console.info(`Servidor API corriendo en el puerto ${PORT}`)
 })
 
 module.exports = app

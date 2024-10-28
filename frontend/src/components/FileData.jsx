@@ -8,15 +8,16 @@ function FileData() {
   const { selectedFile, fileData, loading, error } = useSelector((state) => state.file);
 
   useEffect(() => {
-    if (selectedFile) {
+    if (selectedFile && !fileData) {
       dispatch(fetchFileData(selectedFile));
     }
-  }, [dispatch, selectedFile]);
+  }, [dispatch, selectedFile, fileData]);
+
 
   return (
     <Container>
-      <div className='d-flex justify-content-between align-items-center'>
-        <h2 className='mb-4'>Data for {selectedFile}</h2>
+      <div className='d-flex justify-content-between align-items-center my-sm-4'>
+        <h2>Data for {selectedFile}</h2>
         <Button variant='secondary' onClick={() => dispatch(clearSelectedFile())} className='mb-3'>
           Back to Files
         </Button>
@@ -37,7 +38,6 @@ function FileData() {
 
       {!loading && !error && fileData && fileData.lines.length > 0 && (
         <Table responsive='md' striped bordered hover className='shadow-sm'>
-          <caption className='text-muted'>List of data entries for the file {selectedFile}</caption>
           <thead className='bg-primary text-white'>
             <tr>
               <th>Text</th>

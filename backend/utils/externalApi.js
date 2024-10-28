@@ -10,14 +10,12 @@ const API_KEY = 'Bearer aSuperSecretKey'
 async function getFileList () {
   try {
     const response = await axios.get(`${EXTERNAL_API_BASE_URL}/files`, {
-      headers: {
-        Authorization: API_KEY
-      }
-    })
-    return response.data.files
+      headers: { Authorization: API_KEY }
+    });
+    return response.data.files;
   } catch (error) {
-    console.error('Error al obtener la lista de archivos:', error.message)
-    return []
+    console.error('Error fetching file list:', error.message);
+    throw new Error('Could not retrieve file list from external API.');
   }
 }
 
@@ -30,11 +28,11 @@ async function downloadFile (fileName) {
   try {
     const response = await axios.get(`${EXTERNAL_API_BASE_URL}/file/${fileName}`, {
       headers: { Authorization: API_KEY }
-    })
-    return response.data
+    });
+    return response.data;
   } catch (error) {
-    console.error(`Error al descargar el archivo ${fileName}:`, error.message)
-    return null
+    console.error(`Error downloading file ${fileName}:`, error.message);
+    throw new Error(`Failed to download file: ${fileName}`);
   }
 }
 
