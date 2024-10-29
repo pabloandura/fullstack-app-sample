@@ -27,7 +27,12 @@ Ensure that you have Node.js (v14+) and npm installed on your machine. The proje
    git clone https://github.com/pabloandura/fullstack-for-toolbox.git
    cd fullstack-for-toolbox
 
-2. **Install dependencies for both backend and frontend:**
+### Deployment Options
+
+#### Local Development
+To run the application locally:
+
+1. **Install dependencies for both backend and frontend:**
    ```bash
    cd frontend
    npm install
@@ -36,6 +41,37 @@ Ensure that you have Node.js (v14+) and npm installed on your machine. The proje
    cd backend
    npm install
    ```
+2. **Start the frontend and backend servers:**
+   
+   Run `npm start` in the `frontend` or `backend` directory to start the application on http://localhost, with ports `3000` and `3001`.
+
+#### Docker Setup
+
+To run the application in a Docker environment, both backend and frontend services are containerized. Docker ensures consistency across environments and simplifies setup.
+   - Docker Compose is configured to build and manage both services.
+
+Build and Start Services:
+To build and start the application, use the following command:
+```bash
+docker-compose up --build
+```
+This command will build and start both the backend and frontend services, allowing you to access the frontend at `http://localhost:3000` and the backend API at `http://localhost:3001`.
+
+### Frontend Application `proxy` Property in `package.json`
+
+The `"proxy"` property in the frontend's `package.json` file is configured to simplify API requests to the backend server during development. 
+
+#### Current Configuration for Docker Deployment
+
+In the Docker environment, the `"proxy"` property is set to `"http://backend:3001"`, pointing to the backend service within Docker Compose. This setup allows the frontend to seamlessly route API requests to the backend without specifying the full backend URL each time, simplifying code and ensuring consistency across the Docker network.
+
+**Docker-specific configuration:**
+```json
+"proxy": "http://backend:3001"
+```
+This configuration is used by React to forward any requests from the frontend server (e.g., `http://frontend:3000/files/list`) directly to `http://backend:3001/files/list`.
+
+We can change it to localhost if we will opt for a local deployment.
 
 ## Project Structure
 
@@ -74,4 +110,4 @@ This project is structured as a monorepo, allowing both the frontend and backend
   
 This approach ensures that the backend and frontend work cohesively within the monorepo structure, simplifying development and deployment while improving maintainability.
 
-
+Thank you for reading! and the opportunity.
