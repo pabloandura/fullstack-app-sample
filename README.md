@@ -37,10 +37,6 @@ Ensure that you have Node.js (v14+) and npm installed on your machine. The proje
    npm install
    ```
 
-3. **Environment Variables:**
-   - Set up environment variables in the backend to access external APIs, e.g., an `API_KEY` for secure requests.
-   - Refer to `.env.example` in the `backend` folder for required environment variables. Create a `.env` file in the `backend` directory and add the necessary values.
-
 ## Project Structure
 
 The project is organized into two main folders:
@@ -50,23 +46,9 @@ The project is organized into two main folders:
 
 ## Testing
 
-To run tests for both the frontend and backend:
-
-### Backend Tests
-
-In the `backend` directory, run:
+In the `frontend` or `backend` directory, run:
 
 ```bash
-cd backend
-npm test
-```
-
-### Frontend Tests
-
-In the `frontend` directory, run:
-
-```bash
-cd frontend
 npm test
 ```
 
