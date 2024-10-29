@@ -1,4 +1,3 @@
-// src/components/FileList.js
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchFileList, fetchFileData } from '../slices/fileSlice';

@@ -42,7 +42,7 @@ const fileSlice = createSlice({
     selectFile: (state, action) => {
       state.selectedFile = action.payload;
       state.fileData = null;
-      state.error = null; // Reset error when selecting a new file
+      state.error = null;
     },
     clearSelectedFile: (state) => {
       state.selectedFile = null;
@@ -66,7 +66,7 @@ const fileSlice = createSlice({
       })
       .addCase(fetchFileData.pending, (state, action) => {
         state.loading = true;
-        state.loadingFile = action.meta.arg; // Track which file is being loaded
+        state.loadingFile = action.meta.arg;
         state.error = null;
       })
       .addCase(fetchFileData.fulfilled, (state, action) => {
@@ -74,13 +74,13 @@ const fileSlice = createSlice({
         state.loadingFile = null;
         state.fileData = action.payload.data;
         state.selectedFile = action.payload.fileName;
-        state.error = null; // Clear any previous errors on successful fetch
+        state.error = null;
       })
       .addCase(fetchFileData.rejected, (state, action) => {
         state.loading = false;
         state.loadingFile = null;
-        state.fileData = null; // Clear file data if fetch fails
-        state.selectedFile = action.meta.arg; // Retain selectedFile on error
+        state.fileData = null;
+        state.selectedFile = action.meta.arg;
         state.error = action.payload?.error || 'An unexpected error occurred';
       });
   },
