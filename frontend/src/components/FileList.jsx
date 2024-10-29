@@ -6,7 +6,7 @@ import { Button, ListGroup, Container, Spinner } from 'react-bootstrap';
 
 function FileList() {
   const dispatch = useDispatch();
-  const { fileList, loadingFile, error } = useSelector((state) => state.file);
+  const { fileList, loadingFile } = useSelector((state) => state.file);
 
   useEffect(() => {
     dispatch(fetchFileList());

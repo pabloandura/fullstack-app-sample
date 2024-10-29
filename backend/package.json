@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js --watch",
-    "test": "mocha",
+    "test": "mocha --recursive",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
@@ -18,13 +18,14 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.7",
-    "chai-http": "^5.1.1",
+    "chai-http": "^4.4.0",
     "express": "^4.21.1"
   },
   "devDependencies": {
-    "chai": "^5.1.2",
+    "chai": "^4.2.0",
     "mocha": "^10.7.3",
     "nodemon": "^3.1.7",
+    "sinon": "^19.0.2",
     "standard": "^17.1.2"
   }
 }
