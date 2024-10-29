@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchFileList, fetchFileData } from '../slices/fileSlice';
-import { Button, ListGroup, Container, Spinner } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchFileList, fetchFileData } from '../slices/fileSlice'
+import { Button, ListGroup, Container, Spinner } from 'react-bootstrap'
 
-function FileList() {
-  const dispatch = useDispatch();
-  const { fileList, loadingFile } = useSelector((state) => state.file);
+function FileList () {
+  const dispatch = useDispatch()
+  const { fileList, loadingFile } = useSelector((state) => state.file)
 
   useEffect(() => {
-    dispatch(fetchFileList());
-  }, [dispatch]);
+    dispatch(fetchFileList())
+  }, [dispatch])
 
   const handleSelectFile = (file) => {
-    dispatch(fetchFileData(file));
-  };
+    dispatch(fetchFileData(file))
+  }
 
   return (
     <Container>
@@ -28,17 +28,19 @@ function FileList() {
               title={`Show rows for file ${file}`}
               onClick={() => handleSelectFile(file)}
             >
-              {loadingFile === file ? (
-                <Spinner animation="border" size="sm" />
-              ) : (
-                <i className='bi bi-arrow-bar-right' />
-              )}
+              {loadingFile === file
+                ? (
+                  <Spinner animation='border' size='sm' />
+                  )
+                : (
+                  <i className='bi bi-arrow-bar-right' />
+                  )}
             </Button>
           </ListGroup.Item>
         ))}
       </ListGroup>
     </Container>
-  );
+  )
 }
 
-export default FileList;
+export default FileList

@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchFileData, clearSelectedFile } from '../slices/fileSlice';
-import { Table, Container, Button, Spinner, Alert } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchFileData, clearSelectedFile } from '../slices/fileSlice'
+import { Table, Container, Button, Spinner, Alert } from 'react-bootstrap'
 
-function FileData() {
-  const dispatch = useDispatch();
-  const { selectedFile, fileData, loading, error } = useSelector((state) => state.file);
+function FileData () {
+  const dispatch = useDispatch()
+  const { selectedFile, fileData, loading, error } = useSelector((state) => state.file)
 
   useEffect(() => {
     if (selectedFile && !fileData) {
-      dispatch(fetchFileData(selectedFile));
+      dispatch(fetchFileData(selectedFile))
     }
-  }, [dispatch, selectedFile, fileData]);
-
+  }, [dispatch, selectedFile, fileData])
 
   return (
     <Container>
@@ -57,7 +56,7 @@ function FileData() {
         </Table>
       )}
     </Container>
-  );
+  )
 }
 
-export default FileData;
+export default FileData
